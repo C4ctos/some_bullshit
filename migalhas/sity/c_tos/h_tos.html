@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Counter</title>
+    </head>
+
+    <body>
+        <p id="counterDisplay">0</p>
+    
+        <button id="incrementButton">Add 1</button>
+        <button id="iButton">Add 2</button>
+        
+        <script>
+            let counter = 0;
+        
+            const counterDisplay = document.getElementById('counterDisplay');
+            const incrementButton = document.getElementById('incrementButton');
+            const iButton = document.getElementById('iButton');
+
+        
+            incrementButton.addEventListener('click', function() {
+                counter++;
+            
+                counterDisplay.textContent = counter;
+            });
+
+            iButton.addEventListener('click', function() {
+                counter+= 2;
+            
+                counterDisplay.textContent = counter;
+            });
+        </script>
+    </body>
+</html>

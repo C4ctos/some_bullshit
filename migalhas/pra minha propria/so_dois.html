@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>site site site</title>
+
+        <style>
+
+            .header {
+                display: grid;
+                grid-template-columns: auto auto auto;
+                height: 150px;
+                max-height: 150px;
+                background-color: #14182e;
+                padding: 20px;
+                text-align: left;
+                margin-bottom: 76px;
+                border: 2px solid #97b3e6;
+                outline: #dbe7ff solid 3px;
+            }
+
+            body {
+                margin: 30px;
+
+                background-image: url('https://files.catbox.moe/z6celu.png');
+            }
+
+            .row{
+
+                padding: 15px;
+                height: 512px;
+                display: grid;
+                grid-template-columns: auto 70% 30%;
+                background-color: #14182e;
+                border: 2px solid #97b3e6;
+                outline: #dbe7ff solid 3px;
+            }
+
+            button{
+                height: 50px;
+                width: 70px;
+                padding: 15px;
+
+            }
+
+
+            .myButton{
+                background:url(Sprite-0010.png) no-repeat;
+                cursor:pointer;
+                border:none;
+                height: 50px;
+                width: 70px;
+                padding: 15px;
+            }
+
+            .myButton:active {
+                background:url(Sprite-0011.png) no-repeat;
+            }
+
+            .myyButton{
+                background:url(Sprite-0011.png) no-repeat;
+                cursor:pointer;
+                border:none;
+                height: 50px;
+                width: 70px;
+                padding: 15px;
+            }
+
+            .myyButton:active {
+                background:url(Sprite-0010.png) no-repeat;
+            }
+
+
+        </style>
+    </head>
+
+
+    <body>
+
+        <div class="header">
+
+            <div>
+
+                <a href="so_um.html"><img src="Sprite-0003.png" height="150px" ></a>
+            </div>
+
+
+            <div>
+
+                <p style="color: #dbe7ff;">
+                    NOME: nome<br>
+                    IDADE: idade<br>
+                    MEIOS: meios</p>
+            </div>
+
+
+            <div>
+
+                <p style="color: #dbe7ff;">
+                    LINKS: liinks<br>
+                    LINKS: liinks<br>
+                    LINKS: liinks</p>
+            </div>
+        </div>
+
+        
+        <div class="row">
+
+            <div>
+
+                <img src="signal spires layer 0.png" id="image_0" style="image-rendering: pixelated; position: absolute;">
+                <img src="signal spires layer 1.png" id="image_1" style="image-rendering: pixelated; position: absolute;">
+                <img src="signal spires layer 2.png" id="image_2" style="image-rendering: pixelated; position: absolute;">
+                <img src="signal spires layer 3.png" id="image_3" style="image-rendering: pixelated; position: absolute;">
+            <!--<img src="signal spires layer 4.png" id="image_4" style="image-rendering: pixelated; position: absolute;">
+                <img src="signal spires layer 5.png" id="image_5" style="image-rendering: pixelated; position: absolute;">
+                <img src="signal spires layer 6.png" id="image_6" style="image-rendering: pixelated; position: absolute;">
+                <img src="signal spires layer 7.png" id="image_7" style="image-rendering: pixelated; position: absolute;">-->
+            </div>
+
+            <div></div>
+
+            <div>
+            <!--<button id="layer_7"></button><br>-->
+            <!--<button id="layer_6"></button><br>-->
+            <!--<button id="layer_5"></button><br>-->
+            <!--<button id="layer_4"></button><br>-->
+                <button id="layer_3" class="myButton"></button><br><br>
+                <button id="layer_2" class="myButton"></button><br><br>
+                <button id="layer_1" class="myButton"></button><br><br>
+            <!--<button id="layer_0"></button><br>-->
+            </div>
+            
+        </div>
+        
+        <script>
+            let Button_7 = true;
+            let Button_6 = true;
+            let Button_5 = true;
+            let Button_4 = true;
+            let Button_3 = true;
+            let Button_2 = true;
+            let Button_1 = true;
+            let Button_0 = true;
+
+            const layer_7_Button = document.getElementById('layer_7');
+            const layer_6_Button = document.getElementById('layer_6');
+            const layer_5_Button = document.getElementById('layer_5');
+            const layer_4_Button = document.getElementById('layer_4');
+            const layer_3_Button = document.getElementById('layer_3');
+            const layer_2_Button = document.getElementById('layer_2');
+            const layer_1_Button = document.getElementById('layer_1');
+            const layer_0_Button = document.getElementById('layer_0');
+
+            const layer_0_image  = document.getElementById('image_0');
+            const layer_1_image  = document.getElementById('image_1');
+            const layer_2_image  = document.getElementById('image_2');
+            const layer_3_image  = document.getElementById('image_3');
+/*
+            layer_7.addEventListener('click', function() {
+
+                Button_7 = !Button_7;
+
+                if(Button_7){
+
+                    image_7.style.display = "block";
+                }else{
+
+                    image_7.style.display = "none";
+                }
+
+                console.log("7");
+            });
+
+            layer_6.addEventListener('click', function() {
+
+                Button_6 = !Button_6;
+
+                if(Button_6){
+
+                    image_6.style.display = "block";
+                }else{
+
+                    image_6.style.display = "none";
+                }
+
+                console.log("6");
+            });
+
+            layer_5.addEventListener('click', function() {
+
+                Button_5 = !Button_5;
+
+                if(Button_5){
+
+                    image_5.style.display = "block";
+                }else{
+
+                    image_5.style.display = "none";
+                }
+
+                console.log("5");
+            });
+
+            layer_4.addEventListener('click', function() {
+
+                Button_4 = !Button_4;
+
+                if(Button_4){
+
+                    image_4.style.display = "block";
+                }else{
+
+                    image_4.style.display = "none";
+                }
+
+                console.log("4");
+            });
+*/
+            layer_3.addEventListener('click', function() {
+
+                Button_3 = !Button_3;
+
+                if(Button_3){
+
+                    image_3.style.display = "block";
+                }else{
+
+                    image_3.style.display = "none";
+                }
+
+                console.log("3");
+            });
+
+            layer_2.addEventListener('click', function() {
+
+                Button_2 = !Button_2;
+
+                if(Button_2){
+
+                    image_2.style.display = "block";
+                }else{
+
+                    image_2.style.display = "none";
+                }
+
+                console.log("2");
+            });
+
+            layer_1.addEventListener('click', function() {
+
+                Button_1 = !Button_1;
+
+                if(Button_1){
+
+                    image_1.style.display = "block";
+                    
+                }else{
+
+                    image_1.style.display = "none";
+                }
+
+                console.log("1");
+            });
+
+          /*layer_0.addEventListener('click', function() {
+
+                Button_0 = !Button_0;
+
+                if(Button_0){
+
+                    image_0.style.display = "block";
+                }else{
+
+                    image_0.style.display = "none";
+                }
+
+                console.log("0");
+            });*/
+        </script>
+    </body>
+</html>

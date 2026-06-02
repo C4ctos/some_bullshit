@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>site site site</title>
+
+
+        <style>
+
+            :root {
+                --white_blue: #97b3e6;
+                --blue_white: #dbe7ff;
+                --bleck_blue: #14182e;
+            }
+
+            .header {
+                display: grid;
+                grid-template-columns: 25% 25% 50%;
+                height: 150px;
+                max-height: 150px;
+                background-color: var(--bleck_blue);
+                padding: 20px;
+                text-align: left;
+                margin-bottom: 76px;
+                border: 2px solid var(--white_blue);
+                outline: 3px solid var(--blue_white);
+            }
+
+            body {
+                margin-right: 180px;
+                margin-left: 180px;
+                margin-top: 40px;
+
+                /*background-image: url("https://yt3.ggpht.com/YovHD0AYIfHmTd_AT-ajmanpJxa2WOGBblFCII3x48PKlwW4aUzmi9r9cNzVUM-zWlnnMJiE8w=s88-c-k-c0x00ffffff-no-rj");*/
+                background-image: url("https://files.catbox.moe/z6celu.png");
+                /*background-image: url(fireblu.gif);*/
+            }
+
+            .fundos_coiso_pra_fireblu {
+                background-image: url("do\ isso\ pro\ fireblu.gif");
+            }
+
+            .fundos_fireblu {
+                background-image: url("fireblu.gif");
+            }
+
+            .column {
+
+                padding: 15px;
+                background-color: var(--bleck_blue);
+            }
+
+            .row{
+
+                display: grid;
+                grid-template-columns: auto auto;
+                border: 2px solid var(--white_blue);
+                outline: 3px solid var(--blue_white);
+            }
+
+
+
+            .dropdown-container {
+                position: relative; /* Needed for absolute positioning of the dropdown content */
+                display: inline-block; /* Keeps the dropdown on one line */
+            }
+
+            .dropdown-button {
+                background-color: #4CAF50; /* Green */
+                color: white;
+                padding: 10px 16px;
+                font-size: 16px;
+                border: none;
+                cursor: pointer;
+            }
+
+            .dropdown-content {
+                display: none; /* Hidden by default */
+                position: absolute; /* Positions the dropdown relative to the container */
+                background-color: #f9f9f9;
+                min-width: 160px;
+                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                z-index: 1; /* Ensures the dropdown appears above other content */
+            }
+
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block; /* Makes the entire area clickable */
+            }
+
+            .dropdown-content a:hover {
+                background-color: #ddd;
+            }
+
+            .dropdown-container:hover .dropdown-content {
+                display: block; /* Show the dropdown on hover */
+            }
+        </style>
+    </head>
+
+
+    <body onload="load_all_the_things()">
+        
+        <div class="dropdown-container">
+
+            <button class="dropdown-button">Choose an Option</button>
+
+            <div class="dropdown-content">
+
+                <a href="#" onclick="mudas_fundos_fireblu()">Option 1</a>
+
+                <a href="#" onclick="mudas_fundos()">Option 2</a>
+
+                <a href="#" onclick="logOption('Option 3')">Option 3</a>
+
+                <a href="#" onclick="logOption('Option 4')">Option 4</a>
+            </div>
+        </div>
+
+        <script>
+            //setTimeout(() => {  }, 1);
+
+            function load_all_the_things(){
+
+                document.body.classList.toggle("fundos_fireblu");
+                setTimeout(() => {document.body.classList.toggle("fundos_fireblu");}, 0.00000000000000000000000000000000000001);
+
+                document.body.classList.toggle("fundos_coiso_pra_fireblu");
+                setTimeout(() => {document.body.classList.toggle("fundos_coiso_pra_fireblu");}, 0.00000000000000000000000000000000000001);
+
+                //console.log("H");
+            }
+
+            function logOption(message) {
+                console.log(message);
+
+                /*document.body.classList.toggle("fundos_fireblu");
+
+                setTimeout(() => {document.body.classList.toggle("fundos_fireblu");}, 1);*/
+            }
+
+            function mudas_fundos_fireblu() {
+
+                document.body.classList.toggle("fundos_coiso_pra_fireblu");
+
+                setTimeout(() => {document.body.classList.toggle("fundos_coiso_pra_fireblu");}, 2275);
+
+                setTimeout(() => {document.body.classList.toggle("fundos_fireblu");}, 2275);
+
+                //document.body.style.backgroundImage = "url('fireblu.gif')";
+                //document.body.style.backgroundColor = "red";
+                console.log("aaaa")
+            }
+
+            function mudas_fundos() {
+                document.body.style.backgroundImage = "url('https://files.catbox.moe/z6celu.png')";
+                //document.body.style.backgroundColor = "red";
+                console.log("bbbb")
+            }
+        </script>
+
+        <!--<script>
+
+            let Button_1 = true;
+
+            const jsbop1 = document.getElementById("bop1");
+
+            bop1.addEventListener('click', function() {
+
+                Button_1 = !Button_1;
+
+
+                console.log("3");
+                console.log("--" + Button_1 + "--");
+            });
+
+        </script>-->
+
+        <!--<div class="header">
+
+            <div>
+
+                <img src="Sprite-0003.png" height="150px" >
+            </div>
+
+
+            <div>
+
+                <p style="color: var(--blue_white);">
+                    NOME: nome<br>
+                    IDADE: idade<br>
+                    MEIOS: meios</p>
+            </div>
+
+
+            <div>
+
+                <p style="color: var(--blue_white);">
+                    LINKS: liinks<br>
+                    LINKS: liinks<br>
+                    LINKS: liinks</p>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="column">
+
+                <a href="so_dois.html"><img src="https://files.catbox.moe/isafsu.png" height="400px" style="image-rendering: pixelated;"></a>
+            </div>
+
+            <div class="column">
+
+                <h2 style="color: var(--blue_white);">pink clouds</h2>
+                <p style="color: var(--blue_white);">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam minima obcaecati tempore ea, veniam non consequatur fugiat illo perferendis, hic voluptatibus aspernatur quidem! Soluta aliquam nostrum maxime fuga laudantium perspiciatis!</p>
+            </div>
+
+
+            <div class="column">
+
+                <a href="so_tres.html"><img src="https://files.catbox.moe/4u2b30.png" height="400px" style="image-rendering: pixelated;"></a>
+            </div>
+
+            <div class="column">
+
+                <h2 style="color: var(--blue_white);">I big fan</h2>
+                <p style="color: var(--blue_white);">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam minima obcaecati tempore ea, veniam non consequatur fugiat illo perferendis, hic voluptatibus aspernatur quidem! Soluta aliquam nostrum maxime fuga laudantium perspiciatis!</p>
+            </div>
+        </div>-->
+    </body>
+</html>
