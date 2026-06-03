@@ -10,12 +10,10 @@ for (const link of links){
 
     if (link.id === "video-title"){
 
-        console.log("-");
-
         link.href = link.href.split('&list=')[0];
 
         arrayVideos.push(link.title + ';' + link.href);
 
-        console.log(link.title + "-" + link.href);
+        console.log("\n \n" + link.title + "\n" + link.href + "\n \n");
     }
 }
