@@ -570,7 +570,7 @@ public class pir{
 
         //n_mais(1);
         //print_numero();
-        //print_mouse_stuff();
+        print_mouse_stuff();
         //check_paras();
         //paras();
         //look_for_the_square_manual();

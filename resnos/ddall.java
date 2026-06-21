@@ -10,6 +10,7 @@ public class ddall{
     static String[] old_names;
     static String[] new_names;
 
+
     static int count_lines() throws IOException{
 
         String[] r_linha_coluna = new String[1000];
@@ -97,15 +98,21 @@ public class ddall{
             // File (or directory) with new name
             File file2 = new File(new_names[i]);
 
-            if (file2.exists())
+            if(file2.exists()){
                 throw new java.io.IOException("file exists");
+            }
+
+            if(!file.exists()){
+
+                System.err.println("no file");
+            }
 
             // Rename file (or directory)
             boolean success = file.renameTo(file2);
 
-            if (!success) {
-               // File was not successfully renamed
-        }
+            if (!success){
+                //System.out.println("File was not successfully renamed");
+            }
         }
     }
 
@@ -130,7 +137,7 @@ public class ddall{
     public static void main(String[] args) throws IOException{
 
         start_variables();
-        
+
         old_names = get_names("resnos/old_names");
         new_names = get_names("resnos/new_names");
 
