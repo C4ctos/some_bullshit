@@ -1,20 +1,19 @@
 package pims;
 
-import pims.for_now;
-
 import java.awt.AWTException;
 import java.awt.Color;
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.awt.MouseInfo;
-import java.awt.Point;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 //import javax.xml.crypto.dsig.keyinfo.KeyValue;
@@ -82,13 +81,12 @@ public class pir{
             System.out.print(t_numero[i]+",");
         }
         System.out.println(" ");
-        
     }
 
 
-    public void File_create(){
+    public void File_create(String name){
         try {
-            File myObj = new File("mer.txt");
+            File myObj = new File(name + ".txt");
             if (myObj.createNewFile()) {
                 System.out.println("File created: " + myObj.getName());
             } else {
@@ -101,15 +99,47 @@ public class pir{
     }
 
 
-    public String File_reader(){
+    static int count_lines(String name) throws IOException{
 
-        String data = "";
+        Path filePath = Paths.get(name + ".txt");
+        
+        FileReader reader = new FileReader(filePath.toFile());
 
+        int charInt;
+        
+        int lines = 1;
+        
+        while ((charInt = reader.read()) != -1){
+
+            if(charInt == 10){
+                lines++;
+            }
+        }
+
+        reader.close();
+
+        return lines;
+    }
+
+
+    public String[] File_reader(String name){
+
+        int index = 0;
+
+        String[] data = null;
         try {
-            File myObj = new File("mer.txt");
+            data = new String[count_lines(name)];
+        } catch (IOException e) {
+            
+            e.printStackTrace();
+        }
+
+        try{
+            File myObj = new File(name + ".txt");
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
-                data = myReader.nextLine();
+                data[index] = myReader.nextLine();
+                index ++;
             }
             myReader.close();
         } catch (FileNotFoundException e) {
@@ -235,21 +265,6 @@ public class pir{
     }
 
 
-    public void File_reader_reader(){
-
-        String to_read = File_reader();
-
-        Integer bs = 0;
-
-        for(int i = 0; i < to_read.length(); i++){
-
-            bs = Integer.valueOf(to_read.charAt(i));
-
-            t_numero[i] = bs - 48;
-        }
-    }
-
-
     public int enchergas_R(int posx, int posy){
 
         Robot olho = null;
@@ -295,8 +310,8 @@ public class pir{
 
     public void paras(){
 
-        File_create();
-        File_writ(array_to_string(t_numero));
+        //File_create();
+        //File_writ(array_to_string(t_numero));
 
         //System.out.println("---------------------------------");
 
@@ -333,34 +348,6 @@ public class pir{
     }
 
 
-    public void look_for_the_square(){
-
-        int x = 2080;
-        int y = 150;
-
-        System.out.println("ying...");
-
-        while(enchergas_B(x, y) != 255 && y <= 1079){
-
-            y += 1;
-        }
-
-        x = 1780;
-
-        System.out.println("xing...");
-
-        while(enchergas_B(x, y + 20) != 255 && y <= 3285){
-
-            x += 1;
-        }
-
-        x++;
-        y++;
-
-        System.out.println(x + "," + y);
-    }
-
-
     public int string_to_int(String s){
 
         int foo = 0;
@@ -373,44 +360,6 @@ public class pir{
         }
 
         return foo;
-    }
-
-
-    public void look_for_the_square_manual(){
-
-        int x = 3198;
-        int y = 119;
-
-        while(true){
-            
-
-            //BufferedReader leitor_x = new BufferedReader((new InputStreamReader(System.in)));
-            //BufferedReader leitor_y = new BufferedReader((new InputStreamReader(System.in)));
-
-            try{
-
-                /*String stx = leitor_x.readLine();
-                x = string_to_int(stx);
-
-                String sty = leitor_y.readLine();
-                y = string_to_int(sty);*/
-
-                System.out.println("x: " + x + ", y: " + y + " | " + " R: " + enchergas_R(x, y) + " G: " + enchergas_G(x, y) + " B: " + enchergas_B(x, y));
-
-            }catch(Exception e){
-
-                System.out.println(e);
-            }
-
-        }
-    }
-
-
-    public void start(){
-
-        File_reader_reader();
-        
-        //look_for_the_square_manual();
     }
 
 
@@ -570,26 +519,6 @@ public class pir{
     }
 
 
-    public void m_loop(){
-
-        //n_mais(1);
-        //print_numero();
-        print_mouse_stuff();
-        //check_paras();
-        //paras();
-        //look_for_the_square_manual();
-
-        download_loop();
-
-        n_mais(1);
-        //check_paras();
-
-        delay(50);
-
-        print_numero();
-    }
-
-
     public boolean[] int_array_to_boolean_array(int[] to_ir){
     
         boolean[] to_return = new boolean[to_ir.length];
@@ -621,7 +550,11 @@ public class pir{
 
         for(int i = 0; i < 378; i++){
 
-            for_now.keying_the_keys(boo);
+            try {
+
+                for_now.keying_the_keys(boo);
+            }catch (Exception e){
+            }
 
             b[b.length-1]++;
 
@@ -636,19 +569,101 @@ public class pir{
     }
 
 
+    public void keyboard_doer(boolean[] b){
+
+        for_now for_now = new for_now();
+
+        try {
+
+            for_now.keying_the_keys(b);
+        }catch (Exception e){
+        }
+    }
+
+    public void keyboard_doer(int[] b){
+
+        keyboard_doer(int_array_to_boolean_array(b));
+    }
+
+    public void keyboard_doer(Integer[] b){
+
+        //System.out.println("b[].intValue()");
+
+        int[] c = {0,0,0,0,0,0,0,0,0};
+
+        for(int i = 0; i < b.length; i++){
+
+            c[i] = b[i].intValue();
+
+            //System.out.println(b[i] + " : " + c[i]);
+        }
+
+        keyboard_doer(c);
+    }
+
+
+    public void File_reader_reader(){
+
+        String[] to_read = File_reader("pims/act");
+
+        System.out.println(to_read);
+
+        Integer[] bs = {0,0,0,0,0,0,0,0,0};
+
+        for(int i = 0; i < to_read.length; i++){
+
+            for(int j = 0; j < to_read[i].length(); j++){
+
+                if(to_read[i].charAt(j) == ';'){
+
+                    //System.out.println();
+
+                    keyboard_doer(bs);
+                }else{
+
+                    bs[j] = (Integer.valueOf(to_read[i].charAt(j)) - 48);
+
+                    //System.out.print(bs[j]);
+                }
+            }
+            //t_numero[i] = bs - 48;
+        }
+    }
+
+
+    public void m_loop(){
+
+        //n_mais(1);
+        //print_numero();
+        print_mouse_stuff();
+        //check_paras();
+        //paras();
+        //look_for_the_square_manual();
+
+        download_loop();
+
+        n_mais(1);
+        //check_paras();
+
+        delay(50);
+
+        print_numero();
+    }
+
+
     public static void main(String[] args){
 
         pir pir = new pir();
 
         //pir.delay(3000);
 
-        pir.b_cont();
+        //pir.b_cont();
 
-        //pir.start();
+        pir.File_reader_reader();
 
         //while (true){
 
-        //    pir.m_loop();
+            //pir.m_loop();
         //}
     }
 }

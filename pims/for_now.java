@@ -2,7 +2,6 @@ package pims;
 
 import java.awt.AWTException;
 import java.awt.Robot;
-import java.awt.event.KeyEvent;
 
 public class for_now{
 
@@ -12,7 +11,7 @@ public class for_now{
 
     static int cont = 0;
 
-    public void keying_the_keys(boolean[] key){
+    public void keying_the_keys(boolean[] key) throws Exception{
 
         Robot ras = null;
         try{
