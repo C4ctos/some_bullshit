@@ -1,5 +1,7 @@
 package pims;
 
+import pims.for_now;
+
 import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Robot;
@@ -45,19 +47,21 @@ public class pir{
     }
 
 
-    public void novi_mais(){
+    public int[] novi_mais(int[] numero, int base){
     
-        for(int i = 0; i <= t_numero.length - 1; i++){
+        for(int i = 0; i <= numero.length - 1; i++){
     
-            if (t_numero[i] >= 10){
+            if (numero[i] >= base){
 
-                t_numero[i] = 0;
+                numero[i] = 0;
                     
-                t_numero[i-1] ++;
+                numero[i-1] ++;
 
-                novi_mais();
+                novi_mais(numero, base);
             }
         }
+
+        return numero;
     }
 
 
@@ -67,7 +71,7 @@ public class pir{
 
             t_numero[t_numero.length-1] += 1;
 
-            novi_mais();
+            t_numero = novi_mais(t_numero, 10);
         }
     }
 
@@ -586,17 +590,65 @@ public class pir{
     }
 
 
+    public boolean[] int_array_to_boolean_array(int[] to_ir){
+    
+        boolean[] to_return = new boolean[to_ir.length];
+
+        for(int i = 0; i < to_ir.length; i ++){
+
+            //System.out.println(i + "::" + to_ir.length);
+
+            if(to_ir[i] == 1){
+
+                to_return[i] = true;
+            }else{
+
+                to_return[i] = false;
+            }
+        }
+
+        return to_return;
+    }
+
+
+    public void b_cont(){
+
+        for_now for_now = new for_now();
+
+        int[] b = {0,0,0,0,0,0,0,0,0};
+
+        boolean[] boo = {false,false,false,false,false,false,false,false,false,};
+
+        for(int i = 0; i < 378; i++){
+
+            for_now.keying_the_keys(boo);
+
+            b[b.length-1]++;
+
+            novi_mais(b, 2);
+
+            boo = int_array_to_boolean_array(b);
+
+            //delay(50);
+
+            //System.out.println("["+b[0]+"]"+"["+b[1]+"]"+"["+b[2]+"]"+"["+b[3]+"]"+"["+b[4]+"]"+"["+b[5]+"]"+"["+b[6]+"]"+"["+b[7]+"]"+"["+b[8]+"]");
+        }
+    }
+
+
     public static void main(String[] args){
 
         pir pir = new pir();
 
         //pir.delay(3000);
 
+        pir.b_cont();
+
         //pir.start();
 
-        while (true){
+        //while (true){
 
-            pir.m_loop();
-        }
+        //    pir.m_loop();
+        //}
     }
 }
