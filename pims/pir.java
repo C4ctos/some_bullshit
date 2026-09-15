@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Robot;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -34,7 +32,7 @@ public class pir{
 
     public int doer_index = 0;
 
-    
+    //the sleep 
     public void delay(int milis){
 
         /*BufferedReader leitor_x = new BufferedReader((new InputStreamReader(System.in)));
@@ -51,7 +49,72 @@ public class pir{
         }
     }
 
+    //quit stuff
+    public void paras(){
 
+        //File_create();
+        //File_writ(array_to_string(t_numero));
+
+        //System.out.println("---------------------------------");
+
+        Runtime.getRuntime().halt(0);
+    }
+
+    public void check_paras(){
+
+        if(doer_index >= 5){
+            paras();
+        }
+    }
+
+
+    //the to_s
+    public String array_to_string(int[] array){
+
+        String abstoni = "";
+
+        for(int i = 0; i < array.length; i++){
+            abstoni += array[i];
+        }
+
+        return abstoni;
+    }
+
+    public int string_to_int(String s){
+
+        int foo = 0;
+
+        try {
+            foo = Integer.parseInt(s);
+        } catch (Exception e) {
+            System.out.println(e);
+            foo = 0;
+        }
+
+        return foo;
+    }
+
+    public boolean[] int_array_to_boolean_array(int[] to_ir){
+    
+        boolean[] to_return = new boolean[to_ir.length];
+
+        for(int i = 0; i < to_ir.length; i ++){
+
+            //System.out.println(i + "::" + to_ir.length);
+
+            if(to_ir[i] == 1){
+
+                to_return[i] = true;
+            }else{
+
+                to_return[i] = false;
+            }
+        }
+
+        return to_return;
+    }
+
+    //adds 1 to a nuber in an base
     public int[] novi_mais(int[] numero, int base){
     
         for(int i = 0; i <= numero.length - 1; i++){
@@ -69,7 +132,7 @@ public class pir{
         return numero;
     }
 
-
+    //file stuff it all just text so you can just go and reade it your self
     public void File_create(String name){
         try {
             File myObj = new File(name + ".txt");
@@ -83,7 +146,6 @@ public class pir{
             e.printStackTrace();
         }
     }
-
 
     static int count_lines(String name) throws IOException{
 
@@ -106,7 +168,6 @@ public class pir{
 
         return lines;
     }
-
 
     public String[] File_reader(String name){
 
@@ -138,19 +199,6 @@ public class pir{
         return(data);
     }
 
-
-    public String array_to_string(int[] array){
-
-        String abstoni = "";
-
-        for(int i = 0; i < array.length; i++){
-            abstoni += array[i];
-        }
-
-        return abstoni;
-    }
-
-
     public void File_writ(String write){
         try {
             FileWriter myWriter = new FileWriter("mem.txt");
@@ -163,18 +211,41 @@ public class pir{
         }
     }
 
+    public void File_reader_reader(){
 
-    public boolean check_color_in_pos(int posx, int posy, int R, int G, int B){
+        String[] to_read = File_reader("pims/act");
 
-        if(enchergas_R(posx, posy) == R && enchergas_G(posx, posy) == G && enchergas_B(posx, posy) == B){
-            return true;
+        //System.out.println(to_read);
+
+        Integer[] bs = {0,0,0,0,0,0,0,0,0};
+
+        for(int i = 0; i < to_read.length; i++){
+
+            for(int j = 0; j < to_read[i].length(); j++){
+
+                if(to_read[i].charAt(j) == ';'){
+
+                    //System.out.println();
+
+                    //keyboard_doer(bs);
+
+                    for (int n = 0; n < 9; n++){
+
+                        keys_to_Press[i][n] = bs[n];   
+                    }
+                }else{
+
+                    bs[j] = (Integer.valueOf(to_read[i].charAt(j)) - 48);
+
+                    //System.out.print(bs[j]);
+                }
+            }
+            //t_numero[i] = bs - 48;
         }
-
-        return false;
     }
 
-
-    public int enchergas_R(int posx, int posy){
+    //screen looking stuff
+        public int enchergas_R(int posx, int posy){
 
         Robot olho = null;
         try{
@@ -216,26 +287,34 @@ public class pir{
         return (olhas.getBlue());
     }
 
+    public boolean check_color_in_pos(int posx, int posy, int R, int G, int B){
 
-    public void paras(){
+        if(enchergas_R(posx, posy) == R && enchergas_G(posx, posy) == G && enchergas_B(posx, posy) == B){
+            return true;
+        }
 
-        //File_create();
-        //File_writ(array_to_string(t_numero));
-
-        //System.out.println("---------------------------------");
-
-        Runtime.getRuntime().halt(0);
+        return false;
     }
 
+    public void wait_for_the_RGB(int posx, int posy, int varR, int varG, int varB){
 
-    public void check_paras(){
+        int R = enchergas_R(posx, posy);
+        int G = enchergas_G(posx, posy);
+        int B = enchergas_B(posx, posy);
 
-        if(doer_index >= 5){
-            paras();
+        while(R != varR || G != varG || B != varB){
+            
+            R = enchergas_R(posx, posy);
+            G = enchergas_G(posx, posy);
+            B = enchergas_B(posx, posy);
+
+            //System.out.println(".");
+
+            delay(200);
         }
     }
 
-
+    //mouse stuff
     public void print_mouse_stuff(){
 
         //BufferedReader leitor_x = new BufferedReader((new InputStreamReader(System.in)));
@@ -256,22 +335,6 @@ public class pir{
         }catch(Exception e){}
     }
 
-
-    public int string_to_int(String s){
-
-        int foo = 0;
-
-        try {
-            foo = Integer.parseInt(s);
-        } catch (Exception e) {
-            System.out.println(e);
-            foo = 0;
-        }
-
-        return foo;
-    }
-
-
     public void move_mouse(int x, int y){
 
         try {
@@ -284,200 +347,7 @@ public class pir{
         }
     }
 
-
-    public void do_the_thing(int thing_to_do){
-
-        Robot robot = null;
-        try{
-            robot = new Robot();
-        } catch (AWTException e){
-            e.printStackTrace();
-        }
-
-        switch (thing_to_do){
-
-            case 1:
-
-                robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-                robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-            break;
-
-            case 2:
-
-                robot.mousePress(InputEvent.BUTTON2_DOWN_MASK);
-                robot.mouseRelease(InputEvent.BUTTON2_DOWN_MASK);
-            break;
-
-            case 3:
-
-                robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
-                robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
-            break;
-
-            case 4:
-
-                robot.keyPress(KeyEvent.VK_CONTROL);
-                delay(50);
-                robot.keyPress(KeyEvent.VK_C);
-                delay(50);
-                robot.keyRelease(KeyEvent.VK_C);
-                delay(50);
-                robot.keyRelease(KeyEvent.VK_CONTROL);
-            break;
-
-            case 5:
-
-                robot.keyPress(KeyEvent.VK_CONTROL);
-                delay(50);
-                robot.keyPress(KeyEvent.VK_V);
-                delay(50);
-                robot.keyRelease(KeyEvent.VK_V);
-                delay(50);
-                robot.keyRelease(KeyEvent.VK_CONTROL);
-            break;
-
-            case 6:
-
-                robot.keyPress(KeyEvent.VK_DOWN);
-                delay(50);
-                robot.keyRelease(KeyEvent.VK_DOWN);
-            break;
-
-            case 7:
-
-                robot.keyPress(KeyEvent.VK_SHIFT);
-                delay(50);
-                robot.keyPress(KeyEvent.VK_HOME);
-                delay(50);
-                robot.keyRelease(KeyEvent.VK_HOME);
-                delay(50);
-                robot.keyRelease(KeyEvent.VK_SHIFT);
-            break;
-
-            default:
-                System.err.println("invalue valid");
-            break;
-        }
-    }
-
-
-    public void wait_for_the_RGB(int posx, int posy, int varR, int varG, int varB){
-
-        int R = enchergas_R(posx, posy);
-        int G = enchergas_G(posx, posy);
-        int B = enchergas_B(posx, posy);
-
-        while(R != varR || G != varG || B != varB){
-            
-            R = enchergas_R(posx, posy);
-            G = enchergas_G(posx, posy);
-            B = enchergas_B(posx, posy);
-
-            //System.out.println(".");
-
-            delay(200);
-        }
-    }
-
-
-    public void download_loop(){
-
-        do_the_thing(7);
-        delay(500);
-
-        do_the_thing(4);
-        delay(500);
-
-        //////////////////////
-        //////////////////////
-        //////////////////////
-        move_mouse(2147, 1064);
-        delay(1000);
-
-        do_the_thing(1);
-        delay(1000);
-
-        do_the_thing(5);
-        delay(1000);
-
-        move_mouse(2582, 726);
-        delay(1000);
-
-        do_the_thing(1);
-        delay(1000);
-
-        wait_for_the_RGB(2548, 533, 255, 255, 255);
-
-        move_mouse(2274, 480);
-        delay(1000);
-
-        do_the_thing(1);
-        delay(1000);
-        //////////////////////
-        //////////////////////
-        //////////////////////
-
-        move_mouse(2274, 1);
-        delay(1000);
-
-        do_the_thing(1);
-        delay(1000);
-
-        do_the_thing(6);
-        delay(500);
-    }
-
-
-    public boolean[] int_array_to_boolean_array(int[] to_ir){
-    
-        boolean[] to_return = new boolean[to_ir.length];
-
-        for(int i = 0; i < to_ir.length; i ++){
-
-            //System.out.println(i + "::" + to_ir.length);
-
-            if(to_ir[i] == 1){
-
-                to_return[i] = true;
-            }else{
-
-                to_return[i] = false;
-            }
-        }
-
-        return to_return;
-    }
-
-
-    public void b_cont(){
-
-        for_now for_now = new for_now();
-
-        int[] b = {0,0,0,0,0,0,0,0,0};
-
-        boolean[] boo = {false,false,false,false,false,false,false,false,false,};
-
-        for(int i = 0; i < 378; i++){
-
-            try {
-
-                for_now.keying_the_keys(boo);
-            }catch (Exception e){
-            }
-
-            b[b.length-1]++;
-
-            novi_mais(b, 2);
-
-            boo = int_array_to_boolean_array(b);
-
-            //delay(50);
-
-            //System.out.println("["+b[0]+"]"+"["+b[1]+"]"+"["+b[2]+"]"+"["+b[3]+"]"+"["+b[4]+"]"+"["+b[5]+"]"+"["+b[6]+"]"+"["+b[7]+"]"+"["+b[8]+"]");
-        }
-    }
-
-
+    //my keys 
     public void keyboard_doer(boolean[] b){
 
         for_now for_now = new for_now();
@@ -488,10 +358,12 @@ public class pir{
         }catch (Exception e){
         }
     }
+
     public void keyboard_doer(int[] b){
 
         keyboard_doer(int_array_to_boolean_array(b));
     }
+
     public void keyboard_doer(Integer[] b){
 
         //System.out.println("b[].intValue()");
@@ -507,6 +379,7 @@ public class pir{
 
         keyboard_doer(c);
     }
+
     public void keyboard_doer(){
 
         int[] a = {0,0,0,0,0,0,0,0,0};
@@ -517,40 +390,6 @@ public class pir{
         }
 
         keyboard_doer(a);
-    }
-
-
-    public void File_reader_reader(){
-
-        String[] to_read = File_reader("pims/act");
-
-        //System.out.println(to_read);
-
-        Integer[] bs = {0,0,0,0,0,0,0,0,0};
-
-        for(int i = 0; i < to_read.length; i++){
-
-            for(int j = 0; j < to_read[i].length(); j++){
-
-                if(to_read[i].charAt(j) == ';'){
-
-                    //System.out.println();
-
-                    //keyboard_doer(bs);
-
-                    for (int n = 0; n < 9; n++){
-
-                        keys_to_Press[i][n] = bs[n];   
-                    }
-                }else{
-
-                    bs[j] = (Integer.valueOf(to_read[i].charAt(j)) - 48);
-
-                    //System.out.print(bs[j]);
-                }
-            }
-            //t_numero[i] = bs - 48;
-        }
     }
 
 
