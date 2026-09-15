@@ -20,13 +20,19 @@ import java.util.Scanner;
 
 
 public class pir{
-    public int[] t_numero = {0,0,0,0};
 
+    public int[ ][ ] keys_to_Press;
+    //key order^  ^key id
 
-    public void set_t_numero(int[] qualquer){
+    /*
+        keys_to_Press[0] [0,0,0,0,0,0,0,0,0]
+        keys_to_Press[1] [0,0,0,0,0,0,0,0,0]
+        keys_to_Press[2] [0,0,0,0,0,0,0,0,0]
+        keys_to_Press[3] [0,0,0,0,0,0,0,0,0]
+        keys_to_Press[4] [0,0,0,0,0,0,0,0,0]
+    */
 
-        t_numero = qualquer;
-    }
+    public int doer_index = 0;
 
     
     public void delay(int milis){
@@ -61,26 +67,6 @@ public class pir{
         }
 
         return numero;
-    }
-
-
-    public void n_mais(int a_somar){
-
-        for(int i = 0; i < a_somar; i++){
-
-            t_numero[t_numero.length-1] += 1;
-
-            t_numero = novi_mais(t_numero, 10);
-        }
-    }
-
-
-    public void print_numero(){
-
-        for(int i = 0; i < t_numero.length; i++){
-            System.out.print(t_numero[i]+",");
-        }
-        System.out.println(" ");
     }
 
 
@@ -147,6 +133,8 @@ public class pir{
             e.printStackTrace();
         }
 
+        keys_to_Press = new int[index][9];
+
         return(data);
     }
 
@@ -172,85 +160,6 @@ public class pir{
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
-        }
-    }
-
-
-    public void digitas(int delay){
-
-        boolean dg = false;
-
-        Robot telef = null;
-        try{
-            telef = new Robot();
-        } catch (AWTException e){
-            e.printStackTrace();
-        }
-
-        for(int i = 0; i < t_numero.length; i++){
-
-            delay(delay);
-
-            switch (t_numero[i]) {
-                case 0:
-                telef.keyPress(KeyEvent.VK_0);
-                telef.keyRelease(KeyEvent.VK_0);
-                    break;
-                
-                case 1:
-                telef.keyPress(KeyEvent.VK_1);
-                telef.keyRelease(KeyEvent.VK_1);
-                    break;
-
-                case 2:
-                telef.keyPress(KeyEvent.VK_2);
-                telef.keyRelease(KeyEvent.VK_2);
-                    break;
-
-                case 3:
-                telef.keyPress(KeyEvent.VK_3);
-                telef.keyRelease(KeyEvent.VK_3);
-                    break;
-                
-                case 4:
-                telef.keyPress(KeyEvent.VK_4);
-                telef.keyRelease(KeyEvent.VK_4);
-                    break;
-
-                case 5:
-                telef.keyPress(KeyEvent.VK_5);
-                telef.keyRelease(KeyEvent.VK_5);
-                    break;
-
-                case 6:
-                telef.keyPress(KeyEvent.VK_6);
-                telef.keyRelease(KeyEvent.VK_6);
-                    break;
-
-                case 7:
-                telef.keyPress(KeyEvent.VK_7);
-                telef.keyRelease(KeyEvent.VK_7);
-                    break;
-
-                case 8:
-                telef.keyPress(KeyEvent.VK_8);
-                telef.keyRelease(KeyEvent.VK_8);
-                    break;
-                
-                case 9:
-                telef.keyPress(KeyEvent.VK_9);
-                telef.keyRelease(KeyEvent.VK_9);
-                    break;
-
-                default:
-    
-                if(dg == false){
-                    System.out.println("digitas não ta de digitas");
-                    System.out.println("verifique mim.txt");
-                }
-                dg = true;
-                    break;
-            }
         }
     }
 
@@ -321,7 +230,7 @@ public class pir{
 
     public void check_paras(){
 
-        if(t_numero[1] >= 50){
+        if(doer_index >= 5){
             paras();
         }
     }
@@ -579,12 +488,10 @@ public class pir{
         }catch (Exception e){
         }
     }
-
     public void keyboard_doer(int[] b){
 
         keyboard_doer(int_array_to_boolean_array(b));
     }
-
     public void keyboard_doer(Integer[] b){
 
         //System.out.println("b[].intValue()");
@@ -593,12 +500,23 @@ public class pir{
 
         for(int i = 0; i < b.length; i++){
 
-            c[i] = b[i].intValue();
+            c[i] = b[i];
 
             //System.out.println(b[i] + " : " + c[i]);
         }
 
         keyboard_doer(c);
+    }
+    public void keyboard_doer(){
+
+        int[] a = {0,0,0,0,0,0,0,0,0};
+
+        for (int i = 0; i < 9; i++) {
+
+            a[i] = keys_to_Press[doer_index][i];
+        }
+
+        keyboard_doer(a);
     }
 
 
@@ -606,7 +524,7 @@ public class pir{
 
         String[] to_read = File_reader("pims/act");
 
-        System.out.println(to_read);
+        //System.out.println(to_read);
 
         Integer[] bs = {0,0,0,0,0,0,0,0,0};
 
@@ -618,7 +536,12 @@ public class pir{
 
                     //System.out.println();
 
-                    keyboard_doer(bs);
+                    //keyboard_doer(bs);
+
+                    for (int n = 0; n < 9; n++){
+
+                        keys_to_Press[i][n] = bs[n];   
+                    }
                 }else{
 
                     bs[j] = (Integer.valueOf(to_read[i].charAt(j)) - 48);
@@ -633,21 +556,26 @@ public class pir{
 
     public void m_loop(){
 
-        //n_mais(1);
         //print_numero();
-        print_mouse_stuff();
+        //print_mouse_stuff();
         //check_paras();
         //paras();
-        //look_for_the_square_manual();
+        
 
-        download_loop();
+        keyboard_doer();
 
-        n_mais(1);
-        //check_paras();
+        doer_index++;
+        
+        check_paras();
 
-        delay(50);
+        //delay(50);
 
-        print_numero();
+    }
+
+
+    public void start(){
+
+        File_reader_reader();
     }
 
 
@@ -659,11 +587,13 @@ public class pir{
 
         //pir.b_cont();
 
-        pir.File_reader_reader();
+        //pir.File_reader_reader();
 
-        //while (true){
+        pir.start();
 
-            //pir.m_loop();
-        //}
+        while (true){
+
+            pir.m_loop();
+        }
     }
 }
